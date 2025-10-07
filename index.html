@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siaga Anak PAUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .wiggle {
+            animation: wiggle 0.5s ease-in-out;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(34, 197, 94, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-6">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-purple-800 mb-2">🚨 Siaga Anak PAUD 🚨</h1>
+            <p class="text-lg text-gray-700">Belajar Keselamatan dengan Cara yang Menyenangkan!</p>
+        </div>
+
+        <!-- Menu Utama -->
+        <div id="mainMenu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <button onclick="showSection('emergency')" class="bg-red-500 hover:bg-red-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">🚨</div>
+                <h3 class="text-xl font-bold mb-2">Nomor Darurat</h3>
+                <p class="text-sm">Pelajari nomor penting untuk keadaan darurat</p>
+            </button>
+
+            <button onclick="showSection('safety')" class="bg-green-500 hover:bg-green-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">🛡️</div>
+                <h3 class="text-xl font-bold mb-2">Tips Keselamatan</h3>
+                <p class="text-sm">Cara aman di rumah, sekolah, dan jalan</p>
+            </button>
+
+            <button onclick="showSection('quiz')" class="bg-yellow-500 hover:bg-yellow-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">🎯</div>
+                <h3 class="text-xl font-bold mb-2">Kuis Keselamatan</h3>
+                <p class="text-sm">Uji pengetahuan keselamatanmu!</p>
+            </button>
+
+            <button onclick="showSection('contacts')" class="bg-blue-500 hover:bg-blue-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">📞</div>
+                <h3 class="text-xl font-bold mb-2">Kontak Penting</h3>
+                <p class="text-sm">Simpan nomor orang tua dan keluarga</p>
+            </button>
+
+            <button onclick="showSection('games')" class="bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">🎮</div>
+                <h3 class="text-xl font-bold mb-2">Permainan Edukasi</h3>
+                <p class="text-sm">Belajar sambil bermain!</p>
+            </button>
+
+            <button onclick="showSection('stories')" class="bg-pink-500 hover:bg-pink-600 text-white p-6 rounded-2xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                <div class="text-6xl mb-4">📚</div>
+                <h3 class="text-xl font-bold mb-2">Cerita Keselamatan</h3>
+                <p class="text-sm">Cerita seru tentang keselamatan</p>
+            </button>
+        </div>
+
+        <!-- Tombol Darurat Besar -->
+        <div class="text-center mb-8">
+            <button onclick="emergencyCall()" class="bg-red-600 hover:bg-red-700 text-white text-2xl font-bold py-6 px-12 rounded-full shadow-2xl pulse-glow transform hover:scale-110 transition-all duration-300">
+                🚨 TOMBOL DARURAT 🚨
+            </button>
+            <p class="text-sm text-gray-600 mt-2">Tekan jika ada keadaan darurat!</p>
+        </div>
+
+        <!-- Konten Dinamis -->
+        <div id="content" class="bg-white rounded-2xl shadow-xl p-6 min-h-96">
+            <div class="text-center py-12">
+                <div class="text-8xl mb-6">👶</div>
+                <h2 class="text-3xl font-bold text-purple-800 mb-4">Selamat Datang, Anak Pintar!</h2>
+                <p class="text-lg text-gray-600 mb-6">Pilih menu di atas untuk mulai belajar keselamatan</p>
+                <div class="flex justify-center space-x-4">
+                    <span class="text-4xl animate-bounce">🌟</span>
+                    <span class="text-4xl animate-bounce" style="animation-delay: 0.1s">⭐</span>
+                    <span class="text-4xl animate-bounce" style="animation-delay: 0.2s">✨</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="text-center mt-6">
+            <button id="backButton" onclick="showHome()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-full shadow-lg hidden">
+                ← Kembali ke Menu Utama
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 'home';
+        let quizScore = 0;
+        let currentQuizQuestion = 0;
+
+        const emergencyNumbers = [
+            { name: 'Polisi', number: '110', icon: '👮‍♂️' },
+            { name: 'Pemadam Kebakaran', number: '113', icon: '🚒' },
+            { name: 'Ambulans', number: '118', icon: '🚑' },
+            { name: 'SAR', number: '115', icon: '🆘' }
+        ];
+
+        const safetyTips = [
+            { title: 'Di Rumah', icon: '🏠', tips: ['Jangan main dengan listrik', 'Hati-hati dengan pisau', 'Jangan buka pintu untuk orang asing', 'Cuci tangan sebelum makan'] },
+            { title: 'Di Jalan', icon: '🚸', tips: ['Lihat kiri-kanan sebelum menyeberang', 'Pakai helm saat naik sepeda', 'Jalan di trotoar', 'Pegang tangan orang tua'] },
+            { title: 'Di Sekolah', icon: '🏫', tips: ['Jangan lari di tangga', 'Beritahu guru jika ada masalah', 'Jangan berkelahi', 'Simpan tas dengan rapi'] }
+        ];
+
+        const quizQuestions = [
+            {
+                question: 'Nomor telepon polisi adalah?',
+                options: ['110', '113', '118', '115'],
+                correct: 0,
+                emoji: '👮‍♂️'
+            },
+            {
+                question: 'Apa yang harus dilakukan sebelum menyeberang jalan?',
+                options: ['Lari cepat', 'Lihat kiri-kanan', 'Tutup mata', 'Teriak keras'],
+                correct: 1,
+                emoji: '🚸'
+            },
+            {
+                question: 'Siapa yang harus diberitahu jika ada orang asing di rumah?',
+                options: ['Teman', 'Orang tua', 'Tetangga', 'Tidak ada'],
+                correct: 1,
+                emoji: '🏠'
+            }
+        ];
+
+        function showSection(section) {
+            currentSection = section;
+            const content = document.getElementById('content');
+            const backButton = document.getElementById('backButton');
+            
+            content.className = 'bg-white rounded-2xl shadow-xl p-6 min-h-96 bounce-in';
+            backButton.classList.remove('hidden');
+
+            switch(section) {
+                case 'emergency':
+                    showEmergencyNumbers();
+                    break;
+                case 'safety':
+                    showSafetyTips();
+                    break;
+                case 'quiz':
+                    startQuiz();
+                    break;
+                case 'contacts':
+                    showContacts();
+                    break;
+                case 'games':
+                    showGames();
+                    break;
+                case 'stories':
+                    showStories();
+                    break;
+            }
+        }
+
+        function showHome() {
+            currentSection = 'home';
+            const content = document.getElementById('content');
+            const backButton = document.getElementById('backButton');
+            
+            backButton.classList.add('hidden');
+            content.innerHTML = `
+                <div class="text-center py-12">
+                    <div class="text-8xl mb-6">👶</div>
+                    <h2 class="text-3xl font-bold text-purple-800 mb-4">Selamat Datang, Anak Pintar!</h2>
+                    <p class="text-lg text-gray-600 mb-6">Pilih menu di atas untuk mulai belajar keselamatan</p>
+                    <div class="flex justify-center space-x-4">
+                        <span class="text-4xl animate-bounce">🌟</span>
+                        <span class="text-4xl animate-bounce" style="animation-delay: 0.1s">⭐</span>
+                        <span class="text-4xl animate-bounce" style="animation-delay: 0.2s">✨</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showEmergencyNumbers() {
+            const content = document.getElementById('content');
+            let html = `
+                <h2 class="text-3xl font-bold text-red-600 mb-6 text-center">📞 Nomor Darurat Penting</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            `;
+            
+            emergencyNumbers.forEach(item => {
+                html += `
+                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 text-center hover:bg-red-100 transition-colors">
+                        <div class="text-6xl mb-4">${item.icon}</div>
+                        <h3 class="text-xl font-bold text-red-800 mb-2">${item.name}</h3>
+                        <div class="text-3xl font-bold text-red-600 mb-4">${item.number}</div>
+                        <button onclick="playSound('${item.name}')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+                            🔊 Dengar Suara
+                        </button>
+                    </div>
+                `;
+            });
+            
+            html += `</div>
+                <div class="mt-8 bg-yellow-100 border-2 border-yellow-300 rounded-xl p-4">
+                    <p class="text-center text-lg font-semibold text-yellow-800">
+                        💡 Ingat: Hanya gunakan nomor darurat saat benar-benar ada keadaan darurat!
+                    </p>
+                </div>
+            `;
+            
+            content.innerHTML = html;
+        }
+
+        function showSafetyTips() {
+            const content = document.getElementById('content');
+            let html = `<h2 class="text-3xl font-bold text-green-600 mb-6 text-center">🛡️ Tips Keselamatan</h2>`;
+            
+            safetyTips.forEach(category => {
+                html += `
+                    <div class="mb-6 bg-green-50 border-2 border-green-200 rounded-xl p-6">
+                        <h3 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                            <span class="text-4xl mr-3">${category.icon}</span>
+                            ${category.title}
+                        </h3>
+                        <ul class="space-y-3">
+                `;
+                
+                category.tips.forEach(tip => {
+                    html += `
+                        <li class="flex items-center text-lg">
+                            <span class="text-2xl mr-3">✅</span>
+                            ${tip}
+                        </li>
+                    `;
+                });
+                
+                html += `</ul></div>`;
+            });
+            
+            content.innerHTML = html;
+        }
+
+        function startQuiz() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const content = document.getElementById('content');
+            const question = quizQuestions[currentQuizQuestion];
+            
+            let html = `
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-yellow-600 mb-6">🎯 Kuis Keselamatan</h2>
+                    <div class="text-6xl mb-6">${question.emoji}</div>
+                    <div class="bg-yellow-100 rounded-xl p-6 mb-6">
+                        <h3 class="text-xl font-bold mb-4">Pertanyaan ${currentQuizQuestion + 1} dari ${quizQuestions.length}</h3>
+                        <p class="text-lg mb-6">${question.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            `;
+            
+            question.options.forEach((option, index) => {
+                html += `
+                    <button onclick="answerQuiz(${index})" class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl text-lg font-semibold transform hover:scale-105 transition-all">
+                        ${option}
+                    </button>
+                `;
+            });
+            
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
+        function answerQuiz(selectedAnswer) {
+            const question = quizQuestions[currentQuizQuestion];
+            const content = document.getElementById('content');
+            
+            if (selectedAnswer === question.correct) {
+                quizScore++;
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">🎉</div>
+                        <h2 class="text-3xl font-bold text-green-600 mb-4">Benar!</h2>
+                        <p class="text-lg mb-6">Jawaban kamu tepat sekali!</p>
+                        <button onclick="nextQuestion()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-lg font-bold">
+                            Lanjut →
+                        </button>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">😅</div>
+                        <h2 class="text-3xl font-bold text-orange-600 mb-4">Hampir Benar!</h2>
+                        <p class="text-lg mb-6">Jawaban yang benar adalah: <strong>${question.options[question.correct]}</strong></p>
+                        <button onclick="nextQuestion()" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-lg font-bold">
+                            Lanjut →
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuizQuestion++;
+            if (currentQuizQuestion < quizQuestions.length) {
+                showQuizQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            const content = document.getElementById('content');
+            const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+            let emoji = '🌟';
+            let message = 'Bagus sekali!';
+            
+            if (percentage === 100) {
+                emoji = '🏆';
+                message = 'Sempurna! Kamu juara keselamatan!';
+            } else if (percentage >= 70) {
+                emoji = '⭐';
+                message = 'Hebat! Kamu sudah paham keselamatan!';
+            } else {
+                emoji = '💪';
+                message = 'Terus belajar ya!';
+            }
+            
+            content.innerHTML = `
+                <div class="text-center py-12">
+                    <div class="text-8xl mb-6">${emoji}</div>
+                    <h2 class="text-3xl font-bold text-purple-600 mb-4">${message}</h2>
+                    <p class="text-2xl mb-6">Skor: ${quizScore}/${quizQuestions.length} (${percentage}%)</p>
+                    <button onclick="startQuiz()" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-4 rounded-xl text-lg font-bold mr-4">
+                        🔄 Ulangi Kuis
+                    </button>
+                </div>
+            `;
+        }
+
+        let familyContacts = {
+            mama: { name: 'Mama', number: '', emoji: '👩' },
+            papa: { name: 'Papa', number: '', emoji: '👨' },
+            kakek: { name: 'Kakek', number: '', emoji: '👴' },
+            nenek: { name: 'Nenek', number: '', emoji: '👵' }
+        };
+
+        function showContacts() {
+            const content = document.getElementById('content');
+            let contactsHtml = '';
+            
+            Object.keys(familyContacts).forEach(key => {
+                const contact = familyContacts[key];
+                const displayNumber = contact.number || 'Belum ada nomor';
+                contactsHtml += `
+                    <div class="bg-white rounded-lg p-4 flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <span class="text-3xl mr-4">${contact.emoji}</span>
+                            <div>
+                                <p class="font-bold">${contact.name}</p>
+                                <p class="text-gray-600">${displayNumber}</p>
+                            </div>
+                        </div>
+                        <button onclick="editContact('${key}')" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                            ✏️ Edit
+                        </button>
+                    </div>
+                `;
+            });
+            
+            content.innerHTML = `
+                <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">📞 Kontak Penting</h2>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-6">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">👨‍👩‍👧‍👦 Keluarga</h3>
+                    <div class="space-y-4">
+                        ${contactsHtml}
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="text-lg text-gray-600 mb-4">💡 Minta bantuan orang tua untuk menyimpan nomor penting!</p>
+                    <button onclick="showEmergencyNumbers()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl">
+                        📞 Lihat Nomor Darurat
+                    </button>
+                </div>
+            `;
+        }
+
+        function editContact(contactKey) {
+            const contact = familyContacts[contactKey];
+            const content = document.getElementById('content');
+            
+            content.innerHTML = `
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-6">✏️ Edit Kontak ${contact.name}</h2>
+                    <div class="bg-blue-50 rounded-xl p-8 max-w-md mx-auto">
+                        <div class="text-6xl mb-4">${contact.emoji}</div>
+                        <h3 class="text-xl font-bold mb-4">${contact.name}</h3>
+                        <form onsubmit="saveContact(event, '${contactKey}')" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Nomor Telepon:</label>
+                                <input type="tel" id="contactNumber" value="${contact.number}" 
+                                       class="w-full p-3 border-2 border-blue-300 rounded-lg text-center text-lg"
+                                       placeholder="Contoh: 081234567890">
+                            </div>
+                            <div class="space-x-4">
+                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+                                    💾 Simpan
+                                </button>
+                                <button type="button" onclick="showContacts()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg">
+                                    ❌ Batal
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4">📱 Minta bantuan orang tua untuk memasukkan nomor yang benar!</p>
+                </div>
+            `;
+        }
+
+        function saveContact(event, contactKey) {
+            event.preventDefault();
+            const number = document.getElementById('contactNumber').value;
+            
+            if (number.trim()) {
+                familyContacts[contactKey].number = number.trim();
+                
+                const content = document.getElementById('content');
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">✅</div>
+                        <h2 class="text-3xl font-bold text-green-600 mb-4">Tersimpan!</h2>
+                        <p class="text-lg mb-6">Nomor ${familyContacts[contactKey].name} sudah disimpan dengan aman!</p>
+                        <button onclick="showContacts()" class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-xl">
+                            📞 Lihat Semua Kontak
+                        </button>
+                    </div>
+                `;
+            } else {
+                alert('📱 Masukkan nomor telepon dulu ya!');
+            }
+        }
+
+        function showGames() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2 class="text-3xl font-bold text-purple-600 mb-6 text-center">🎮 Permainan Edukasi</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-6 text-center">
+                        <div class="text-6xl mb-4">🚦</div>
+                        <h3 class="text-xl font-bold mb-4">Lampu Lalu Lintas</h3>
+                        <button onclick="playTrafficLight()" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg">
+                            🎯 Main Sekarang
+                        </button>
+                    </div>
+                    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 text-center">
+                        <div class="text-6xl mb-4">🔍</div>
+                        <h3 class="text-xl font-bold mb-4">Cari Bahaya</h3>
+                        <button onclick="playFindDanger()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+                            🎯 Main Sekarang
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-lg text-gray-600">🌟 Bermain sambil belajar keselamatan!</p>
+                </div>
+            `;
+        }
+
+        function showStories() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2 class="text-3xl font-bold text-pink-600 mb-6 text-center">📚 Cerita Keselamatan</h2>
+                <div class="space-y-6">
+                    <div class="bg-pink-50 border-2 border-pink-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-pink-800 mb-4">🐰 Kelinci Kecil dan Jalan Raya</h3>
+                        <p class="text-lg mb-4">Suatu hari, Kelinci Kecil ingin menyeberang jalan untuk bermain di taman. Tapi dia ingat nasihat Mama Kelinci...</p>
+                        <button onclick="readStory('rabbit')" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg">
+                            📖 Baca Cerita
+                        </button>
+                    </div>
+                    <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">🐻 Beruang Kecil di Rumah</h3>
+                        <p class="text-lg mb-4">Beruang Kecil sendirian di rumah ketika ada yang mengetuk pintu. Apa yang harus dia lakukan?</p>
+                        <button onclick="readStory('bear')" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
+                            📖 Baca Cerita
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function playTrafficLight() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-6">🚦 Permainan Lampu Lalu Lintas</h2>
+                    <div class="bg-gray-800 rounded-xl p-8 mb-6 inline-block">
+                        <div id="redLight" class="w-16 h-16 rounded-full bg-red-500 mb-4 mx-auto"></div>
+                        <div id="yellowLight" class="w-16 h-16 rounded-full bg-gray-400 mb-4 mx-auto"></div>
+                        <div id="greenLight" class="w-16 h-16 rounded-full bg-gray-400 mx-auto"></div>
+                    </div>
+                    <p class="text-lg mb-6">Lampu merah menyala! Apa yang harus kamu lakukan?</p>
+                    <div class="space-x-4">
+                        <button onclick="trafficAnswer('stop')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg">
+                            🛑 Berhenti
+                        </button>
+                        <button onclick="trafficAnswer('go')" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+                            🚶‍♂️ Jalan
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function trafficAnswer(answer) {
+            const content = document.getElementById('content');
+            if (answer === 'stop') {
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">🎉</div>
+                        <h2 class="text-3xl font-bold text-green-600 mb-4">Benar!</h2>
+                        <p class="text-lg mb-6">Lampu merah artinya BERHENTI! Kamu pintar!</p>
+                        <button onclick="showGames()" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-4 rounded-xl">
+                            🎮 Permainan Lain
+                        </button>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">😅</div>
+                        <h2 class="text-3xl font-bold text-orange-600 mb-4">Ups!</h2>
+                        <p class="text-lg mb-6">Lampu merah artinya BERHENTI ya! Jangan jalan dulu.</p>
+                        <button onclick="playTrafficLight()" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl">
+                            🔄 Coba Lagi
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function playFindDanger() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-6">🔍 Permainan Cari Bahaya</h2>
+                    <p class="text-lg mb-6">Klik pada benda yang berbahaya di rumah!</p>
+                    <div class="bg-blue-100 rounded-xl p-8 mb-6 relative" style="height: 300px;">
+                        <!-- Ruang Tamu -->
+                        <div class="absolute top-4 left-4 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('safe', '🛋️')" title="Sofa">🛋️</div>
+                        <div class="absolute top-4 right-4 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('danger', '🔌')" title="Colokan Listrik">🔌</div>
+                        <div class="absolute bottom-4 left-4 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('safe', '🧸')" title="Boneka">🧸</div>
+                        <div class="absolute bottom-4 right-4 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('danger', '🔪')" title="Pisau">🔪</div>
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('safe', '📚')" title="Buku">📚</div>
+                        <div class="absolute top-16 left-1/2 transform -translate-x-1/2 text-4xl cursor-pointer hover:scale-110 transition-transform" onclick="findDangerAnswer('danger', '🔥')" title="Api">🔥</div>
+                    </div>
+                    <p class="text-sm text-gray-600">💡 Klik pada benda yang berbahaya untuk anak-anak!</p>
+                </div>
+            `;
+        }
+
+        function findDangerAnswer(type, emoji) {
+            const content = document.getElementById('content');
+            if (type === 'danger') {
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">🎉</div>
+                        <h2 class="text-3xl font-bold text-green-600 mb-4">Benar!</h2>
+                        <p class="text-lg mb-6">${emoji} memang berbahaya! Jangan main dengan benda ini ya!</p>
+                        <button onclick="playFindDanger()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl mr-4">
+                            🔄 Main Lagi
+                        </button>
+                        <button onclick="showGames()" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl">
+                            🎮 Permainan Lain
+                        </button>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-8xl mb-6">😅</div>
+                        <h2 class="text-3xl font-bold text-orange-600 mb-4">Hampir!</h2>
+                        <p class="text-lg mb-6">${emoji} aman untuk dimainkan. Cari yang berbahaya ya!</p>
+                        <button onclick="playFindDanger()" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl">
+                            🔄 Coba Lagi
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function readStory(story) {
+            const content = document.getElementById('content');
+            if (story === 'rabbit') {
+                content.innerHTML = `
+                    <div class="bg-pink-50 rounded-xl p-6">
+                        <h2 class="text-2xl font-bold text-pink-800 mb-6 text-center">🐰 Kelinci Kecil dan Jalan Raya</h2>
+                        <div class="text-lg leading-relaxed space-y-4">
+                            <p>🐰 Kelinci Kecil sangat ingin bermain di taman seberang jalan. Taman itu penuh dengan wortel segar dan teman-teman kelinci lainnya.</p>
+                            <p>🤔 Tapi Kelinci Kecil ingat nasihat Mama Kelinci: "Selalu lihat kiri dan kanan sebelum menyeberang jalan, sayang."</p>
+                            <p>👀 Kelinci Kecil berhenti di pinggir jalan. Dia melihat ke kiri... tidak ada mobil. Dia melihat ke kanan... ada mobil datang!</p>
+                            <p>⏰ Kelinci Kecil menunggu sampai mobil lewat. Setelah aman, dia melihat lagi ke kiri dan kanan. Tidak ada mobil!</p>
+                            <p>🎉 Dengan hati-hati, Kelinci Kecil menyeberang jalan dan bermain dengan aman di taman!</p>
+                        </div>
+                        <div class="text-center mt-6">
+                            <p class="text-lg font-bold text-pink-800">💡 Pelajaran: Selalu lihat kiri-kanan sebelum menyeberang!</p>
+                            <button onclick="showStories()" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-lg mt-4">
+                                📚 Cerita Lain
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (story === 'bear') {
+                content.innerHTML = `
+                    <div class="bg-blue-50 rounded-xl p-6">
+                        <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">🐻 Beruang Kecil di Rumah</h2>
+                        <div class="text-lg leading-relaxed space-y-4">
+                            <p>🐻 Beruang Kecil sedang bermain di rumah sendirian. Papa dan Mama Beruang pergi ke pasar sebentar.</p>
+                            <p>🚪 Tiba-tiba ada yang mengetuk pintu. "Tok tok tok!" Beruang Kecil mendengar suara orang yang tidak dikenal.</p>
+                            <p>🤔 "Siapa ya?" pikir Beruang Kecil. Dia ingat pesan Mama: "Jangan buka pintu untuk orang yang tidak kamu kenal."</p>
+                            <p>🗣️ "Siapa di sana?" tanya Beruang Kecil dari dalam rumah tanpa membuka pintu.</p>
+                            <p>👤 "Saya tukang pos," jawab orang itu. "Tapi aku tidak menunggu paket," pikir Beruang Kecil.</p>
+                            <p>📞 Beruang Kecil langsung menelepon Mama Beruang. "Mama, ada orang di depan pintu!"</p>
+                            <p>🏃‍♀️ Mama Beruang langsung pulang dan ternyata itu memang tukang pos dengan paket untuk tetangga yang salah alamat!</p>
+                            <p>🎉 "Pintar sekali kamu tidak membuka pintu sembarangan," puji Mama Beruang.</p>
+                        </div>
+                        <div class="text-center mt-6">
+                            <p class="text-lg font-bold text-blue-800">💡 Pelajaran: Jangan buka pintu untuk orang asing, selalu tanya orang tua dulu!</p>
+                            <button onclick="showStories()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg mt-4">
+                                📚 Cerita Lain
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function playSound(type) {
+            const content = document.getElementById('content');
+            let soundText = '';
+            let number = '';
+            
+            switch(type) {
+                case 'Polisi':
+                    soundText = 'Satu Satu Nol';
+                    number = '110';
+                    break;
+                case 'Pemadam Kebakaran':
+                    soundText = 'Satu Satu Tiga';
+                    number = '113';
+                    break;
+                case 'Ambulans':
+                    soundText = 'Satu Satu Delapan';
+                    number = '118';
+                    break;
+                case 'SAR':
+                    soundText = 'Satu Satu Lima';
+                    number = '115';
+                    break;
+            }
+            
+            // Tampilkan popup dengan animasi
+            const popup = document.createElement('div');
+            popup.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            popup.innerHTML = `
+                <div class="bg-white rounded-2xl p-8 text-center max-w-sm mx-4 bounce-in">
+                    <div class="text-6xl mb-4">🔊</div>
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4">${type}</h3>
+                    <div class="text-4xl font-bold text-red-600 mb-4">${number}</div>
+                    <p class="text-lg mb-6">"${soundText}"</p>
+                    <button onclick="this.parentElement.parentElement.remove()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
+                        ✅ Mengerti
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // Hapus popup otomatis setelah 5 detik
+            setTimeout(() => {
+                if (popup.parentElement) {
+                    popup.remove();
+                }
+            }, 5000);
+        }
+
+        function emergencyCall() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <div class="text-center py-12 bg-red-50 rounded-xl border-4 border-red-300">
+                    <div class="text-8xl mb-6 wiggle">🚨</div>
+                    <h2 class="text-3xl font-bold text-red-600 mb-4">TOMBOL DARURAT DITEKAN!</h2>
+                    <p class="text-lg mb-6">Jika ini keadaan darurat sungguhan, segera hubungi:</p>
+                    <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-6">
+                        <div class="bg-white p-4 rounded-lg border-2 border-red-300">
+                            <div class="text-3xl mb-2">👮‍♂️</div>
+                            <div class="text-2xl font-bold text-red-600">110</div>
+                            <div class="text-sm">Polisi</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-2 border-red-300">
+                            <div class="text-3xl mb-2">🚑</div>
+                            <div class="text-2xl font-bold text-red-600">118</div>
+                            <div class="text-sm">Ambulans</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-red-700 mb-6">⚠️ Hanya gunakan untuk keadaan darurat sungguhan!</p>
+                    <button onclick="showHome()" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-xl">
+                        ← Kembali
+                    </button>
+                </div>
+            `;
+            document.getElementById('backButton').classList.remove('hidden');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ad29ecd1bf3f31',t:'MTc1OTgzNzY0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
